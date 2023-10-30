@@ -1,6 +1,6 @@
 .toast {
     box-sizing: border-box;
-    padding: 1rem;
+    padding: .75rem;
     background-color: white;
     border: 1px solid #333;
     border-radius: .25rem;
