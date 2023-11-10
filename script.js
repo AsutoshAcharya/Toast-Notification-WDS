@@ -1,9 +1,10 @@
 import Toast from "./Toast.js";
 document.querySelector("button").addEventListener("click", () => {
   const toast = new Toast({
-    position: "top-right",
+    position: "bottom-right",
     text: "hello",
     // canClose: true,
-    // autoClose: false,
+    autoClose: 1000,
+    showProgress: true,
   });
 });

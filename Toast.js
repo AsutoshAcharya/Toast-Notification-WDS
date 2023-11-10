@@ -3,6 +3,7 @@ const DEFAULT_OPTIONS = {
   position: "top-right",
   onClose: () => {},
   canClose: true,
+  showProgress: true,
 };
 export default class Toast {
   #toastElement; //private variable
@@ -11,6 +12,9 @@ export default class Toast {
   constructor(options) {
     this.#toastElement = document.createElement("div");
     this.#toastElement.classList.add("toast");
+    requestAnimationFrame(() => {
+      this.#toastElement.classList.add("show");
+    });
     this.#removeBinded = this.remove.bind(this);
     this.update({ ...DEFAULT_OPTIONS, ...options });
   }
@@ -52,10 +56,13 @@ export default class Toast {
     // document.body.remove(".toast-container");
     // or
     const container = this.#toastElement.parentElement;
-    this.#toastElement.remove();
+    this.#toastElement.classList.remove("show");
+    this.#toastElement.addEventListener("transitionend", () => {
+      this.#toastElement.remove();
+      if (container.hasChildNodes()) return;
+      container.remove();
+    });
     this.onClose();
-    if (container.hasChildNodes()) return;
-    container.remove();
   }
 }
 
